@@ -8,9 +8,9 @@ public enum DurationUnit {
     WEEK("week", "weeks", 7),
     MONTH("month", "months", 30);
 
-    private String singularForm;
-    private String pluralForm;
-    private int multiplier;
+    private final String singularForm;
+    private final String pluralForm;
+    private final int multiplier;
 
     DurationUnit(String singularForm, String pluralForm, int multiplier) {
         this.singularForm = singularForm;

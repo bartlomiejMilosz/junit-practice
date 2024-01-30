@@ -12,10 +12,8 @@ public class DurationParser {
         String[] parts = durationString.split(" ");
         if (parts.length == 2) {
             try {
-                int quantity = parseValue(parts[0]);
                 return switch (parts[1]) {
-                    case "week", "weeks" -> quantity * 7;
-                    case "day", "days" -> quantity;
+                    case "day", "days", "week", "weeks", "month", "months" -> unitValueCalculation(parts[0], parts[1]);
                     default -> 0;
                 };
             } catch (NumberFormatException e) {
@@ -27,7 +25,7 @@ public class DurationParser {
         return 0;
     }
 
-    private static int unitValueCalculation(String unitString, String valueString) {
+    private static int unitValueCalculation(String valueString, String unitString) {
         DurationUnit unit = DurationUnit.getByTextValue(unitString);
         if (unit == null) {
             return 0;
