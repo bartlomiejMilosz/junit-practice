@@ -13,24 +13,35 @@ public class DurationParser {
         if (parts.length == 2) {
             try {
                 return switch (parts[1]) {
-                    case "day", "days", "week", "weeks", "month", "months" -> unitValueCalculation(parts[0], parts[1]);
+                    case "day", "days", "week", "weeks", "month", "months" -> pluralUnitValueCalculation(parts[0], parts[1]);
                     default -> 0;
                 };
             } catch (NumberFormatException e) {
                 return 0;
             }
-        } else if (parts.length == 1 && parts[0].equalsIgnoreCase("once")) {
-            return 1;
+        } else if (parts.length == 1) {
+            try {
+                return switch (parts[0]) {
+                    case "day", "week", "month" -> singularUnitValueCalculation(parts[0]);
+                    default -> 0;
+                };
+            } catch (NumberFormatException e) {
+                return 0;
+            }
         }
         return 0;
     }
 
-    private static int unitValueCalculation(String valueString, String unitString) {
+    private static int singularUnitValueCalculation(String unitString) {
         DurationUnit unit = DurationUnit.getByTextValue(unitString);
         if (unit == null) {
             return 0;
         }
-        return (parseValue(valueString) * unit.getMultiplier());
+        return unit.getMultiplier();
+    }
+
+    private static int pluralUnitValueCalculation(String valueString, String unitString) {
+        return (parseValue(valueString) * singularUnitValueCalculation(unitString));
     }
 
     private static int parseValue(String valueString) {
