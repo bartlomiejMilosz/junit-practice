@@ -11,6 +11,7 @@ public class DrugDatabase implements DrugSource {
         dataList.add(new DrugRecord("fluticasone", new int[] {301}, 0));
         dataList.add(new DrugRecord("simvastatin", new int[] {263}, 0));
         dataList.add(new DrugRecord("aspirin", new int[] {3645, 3530}, 0));
+        dataList.add(new DrugRecord("aspirin, children's", new int[] {3645, 3530}, 0));
         dataList.add(new DrugRecord("lorazepam", new int[] {523}, 4));
         dataList.add(new DrugRecord("oxycodone", new int[] {582}, 2));
         dataList.add(new DrugRecord("methadone", new int[] {582}, 2));

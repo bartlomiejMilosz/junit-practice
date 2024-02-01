@@ -2,19 +2,26 @@ package io.github.bartlomiejmilosz.rxwriter.drug;
 
 import io.github.bartlomiejmilosz.rxwriter.drug.database.DrugDatabase;
 import io.github.bartlomiejmilosz.rxwriter.drug.database.DrugRecord;
+import io.github.bartlomiejmilosz.rxwriter.drug.database.DrugSource;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 public class DrugService {
+    private DrugSource drugSource;
+
+    public DrugService(DrugSource drugSource) {
+        this.drugSource = drugSource;
+    }
 
     public List<DispensableDrug> findDrugsStartingWith(String startsWith) {
         if (startsWith == null || startsWith.isBlank() || startsWith.trim().length() < 2) {
             throw new IllegalArgumentException("Starts with string must be non-null, non-blank, " +
                     "and at least two characters. String provided: [" + startsWith + "]");
         }
-        List<DrugRecord> records = new DrugDatabase().findDrugsStartingWith(startsWith);
+        List<DrugRecord> records = this.drugSource.findDrugsStartingWith(startsWith);
         List<DispensableDrug> matchedDrugs = convertRecords(records);
         matchedDrugs.sort(Comparator.comparing(DispensableDrug::drugName));
         return matchedDrugs;
