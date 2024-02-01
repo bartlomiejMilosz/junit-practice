@@ -7,8 +7,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class DrugConceptTest {
 
@@ -70,5 +69,18 @@ class DrugConceptTest {
                 false
         );
         assertTrue(TEST_CONCEPT_OPIATES.isDrugInConcept(drug));
+    }
+
+    @Test
+    void drugNotInConceptIfOneClassMatches() {
+        DispensableDrug drug = new DispensableDrug(
+                "test-drug",
+                new DrugClassification[]{
+                        DrugClassification.ACE_INHIBITORS,
+                        DrugClassification.ANTIBACTERIAL
+                },
+                false
+        );
+        assertFalse(TEST_CONCEPT_OPIATES.isDrugInConcept(drug));
     }
 }

@@ -12,7 +12,7 @@ public class DrugService {
     public List<DispensableDrug> findDrugsStartingWith(String startsWith) {
         if (startsWith == null || startsWith.isBlank() || startsWith.trim().length() < 2) {
             throw new IllegalArgumentException("Starts with string must be non-null, non-blank, " +
-                    "and at least two characters.  String provided: [" + startsWith + "]");
+                    "and at least two characters. String provided: [" + startsWith + "]");
         }
         List<DrugRecord> records = new DrugDatabase().findDrugsStartingWith(startsWith);
         List<DispensableDrug> matchedDrugs = convertRecords(records);
