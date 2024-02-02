@@ -3,6 +3,7 @@ package io.github.bartlomiejmilosz.rxwriter.drug;
 import io.github.bartlomiejmilosz.rxwriter.drug.database.DrugRecord;
 import io.github.bartlomiejmilosz.rxwriter.drug.database.DrugSource;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ class DrugServiceTest implements DrugSource {
     }
 
     @Test
+    @Tag("database")
     void drugsAreReturnedSorted() {
         List<DispensableDrug> foundDrugs = drugService.findDrugsStartingWith("as");
         assertNotNull(foundDrugs);
@@ -38,6 +40,7 @@ class DrugServiceTest implements DrugSource {
     }
 
     @Test
+    @Tag("database")
     void setDrugPropertiesCorrectly() {
         List<DispensableDrug> foundDrugs = drugService.findDrugsStartingWith("aspirin");
         DrugClassification[] expectedClassifications = new DrugClassification[]{
